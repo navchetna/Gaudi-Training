@@ -200,7 +200,7 @@ python ../gaudi_spawn.py --world_size 8 --use_deepspeed run_generation.py \
 | `--dataset_name` | Training dataset to use | `"lvwerra/stack-exchange-paired"` |
 | `--deepspeed` | DeepSpeed configuration file path | `../language-modeling/llama2_ds_zero3_config.json` |
 | `--output_dir` | Directory to save the fine-tuned model | `"./sft"` |
-| `--do_train` | Enables training mode | Flag enabled |
+| `--do_train` | Enables training mode | Enabled |
 | `--max_steps` | Maximum number of training steps | `500` |
 | `--logging_steps` | Frequency of logging during training | `10` |
 | `--save_steps` | Frequency of saving model checkpoints | `100` |
@@ -212,12 +212,12 @@ python ../gaudi_spawn.py --world_size 8 --use_deepspeed run_generation.py \
 | `--warmup_steps` | Warmup steps for the learning rate scheduler | `100` |
 | `--weight_decay` | Weight decay for regularization | `0.05` |
 | `--optim` | Optimizer type | `"paged_adamw_32bit"` |
-| `--lora_target_modules` | Modules for LoRA application | `"q_proj" "v_proj"` |
-| `--bf16` | Enables bfloat16 mixed precision training | Flag enabled |
+| `--lora_target_modules` | Modules for LoRA application | `"q_proj", "v_proj", "k_proj", "o_proj"` |
+| `--bf16` | Enables bfloat16 mixed precision training | Enabled |
 | `--remove_unused_columns` | Keeps all dataset columns | `False` |
 | `--run_name` | Training run name | `"sft_llama2"` |
 | `--report_to` | Disables external reporting | `none` |
-| `--use_habana` | Enables Habana Gaudi accelerator support | Flag enabled |
-| `--use_lazy_mode` | Enables lazy mode for memory optimization | Flag enabled |
+| `--use_habana` | Enables Habana Gaudi accelerator support | Enabled |
+| `--use_lazy_mode` | Enables lazy mode for memory optimization | Enabled |
 
 Adjust these parameters based on your specific hardware capabilities, dataset size, and training objectives. The DeepSpeed Zero-3 configuration enables efficient training of large models like Llama-2-70b across multiple HPUs.
