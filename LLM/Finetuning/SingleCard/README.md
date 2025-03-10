@@ -1,4 +1,4 @@
-# Optimum-Habana DPO Training Guide
+# Optimum-Habana Finetuning Guide
 
 ## Installation
 
