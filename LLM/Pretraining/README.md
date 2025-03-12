@@ -4,7 +4,7 @@ This example will show will show how to run pretraining of Meta Llama2 7B, using
 
 You will learn how to setup the environment, select parameters, execute the workload and then see a price-performance comparison. Intel Gaudi supports PyTorch as the main framework for Training.
 
-This tutorial will be based on the Habana implementation of [Megatron-LM repository](https://github.com/HabanaAI/Megatron-LM), where examples can be found for training large transformer language models such as LLaMA at scale.
+This tutorial will be based on the Habana implementation of [Megatron-LM repository](https://github.com/HabanaAI/Megatron-LM).
 
 The following steps will let you run pretraining on the Llama 7B. In the next sections each step will be described step-by-step:
 
