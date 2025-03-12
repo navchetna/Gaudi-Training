@@ -10,7 +10,7 @@ pip install -e ./optimum-habana
 
 To install the requirements for every example:
 ```bash
-pip install -r examples/trl/requirements.txt
+pip install -r optimum-habana/examples/trl/requirements.txt
 ```
 
 
@@ -18,12 +18,12 @@ pip install -r examples/trl/requirements.txt
 
 1. Supervised fine-tuning of the mistralai/Mixtral-8x7B-Instruct-v0.1 on **4 cards**:
 ```bash
-DEEPSPEED_HPU_ZERO3_SYNC_MARK_STEP_REQUIRED=1 python ../gaudi_spawn.py --world_size 4 --use_deepspeed sft.py \
+DEEPSPEED_HPU_ZERO3_SYNC_MARK_STEP_REQUIRED=1 python optimum-habana/examples/gaudi_spawn.py --world_size 4 --use_deepspeed optimum-habana/examples/trl/sft.py \
     --model_name_or_path mistralai/Mixtral-8x7B-Instruct-v0.1 \
     --dataset_name "philschmid/dolly-15k-oai-style" \
     --subset 'data/' \
     --streaming False \
-    --deepspeed ../language-modeling/llama2_ds_zero3_config.json \
+    --deepspeed "optimum-habana/examples/language-modeling/llama2_ds_zero3_config.json" \
     --output_dir="./model_mixtral" \
     --do_train \
     --max_steps=500 \
@@ -64,10 +64,10 @@ First, we perform supervised fine-tuning of the base Llama-v2-70b model to creat
 **Option A: Using DeepSpeed for distributed training:**
 
 ```bash
-DEEPSPEED_HPU_ZERO3_SYNC_MARK_STEP_REQUIRED=1 python ../gaudi_spawn.py --world_size 8 --use_deepspeed sft.py \
+DEEPSPEED_HPU_ZERO3_SYNC_MARK_STEP_REQUIRED=1 python optimum-habana/examples/gaudi_spawn.py --world_size 8 --use_deepspeed optimum-habana/examples/trl/sft.py \
         --model_name_or_path meta-llama/Llama-2-70b-hf \
         --dataset_name "lvwerra/stack-exchange-paired" \
-        --deepspeed ../language-modeling/llama2_ds_zero3_config.json \
+        --deepspeed "optimum-habana/examples/language-modeling/llama2_ds_zero3_config.json" \
         --output_dir="./sft" \
         --do_train \
         --max_steps=500 \
@@ -93,10 +93,10 @@ DEEPSPEED_HPU_ZERO3_SYNC_MARK_STEP_REQUIRED=1 python ../gaudi_spawn.py --world_s
 **Option B: Using MPI for distributed training:**
 
 ```bash
-DEEPSPEED_HPU_ZERO3_SYNC_MARK_STEP_REQUIRED=1 python ../gaudi_spawn.py --world_size 8 --use_mpi sft.py \
+DEEPSPEED_HPU_ZERO3_SYNC_MARK_STEP_REQUIRED=1 python optimum-habana/examples/gaudi_spawn.py --world_size 8 --use_mpi optimum-habana/examples/trl/sft.py \
         --model_name_or_path meta-llama/Llama-2-70b-hf \
         --dataset_name "lvwerra/stack-exchange-paired" \
-        --deepspeed ../language-modeling/llama2_ds_zero3_config.json \
+        --deepspeed "optimum-habana/examples/language-modeling/llama2_ds_zero3_config.json" \
         --output_dir="./sft" \
         --do_train \
         --max_steps=500 \
@@ -117,12 +117,6 @@ DEEPSPEED_HPU_ZERO3_SYNC_MARK_STEP_REQUIRED=1 python ../gaudi_spawn.py --world_s
         --report_to=none \
         --use_habana \
         --use_lazy_mode
-```
-
-To merge the adaptors and get the final SFT merged checkpoint, use the `merge_peft_adapter.py` helper script that comes with TRL:
-
-```bash
-python merge_peft_adapter.py --base_model_name="meta-llama/Llama-2-70b-hf" --adapter_model_name="sft" --output_name="sft/final_merged_checkpoint"
 ```
 
 ### DeepSpeed vs MPI for Distributed Training
@@ -152,7 +146,7 @@ A general-purpose communication protocol and library for parallel computing that
 Run the DPO trainer using the model saved from the previous step:
 
 ```bash
-DEEPSPEED_HPU_ZERO3_SYNC_MARK_STEP_REQUIRED=1 python ../gaudi_spawn.py --world_size 8 --use_deepspeed dpo.py \
+DEEPSPEED_HPU_ZERO3_SYNC_MARK_STEP_REQUIRED=1 python examples/gaudi_spawn.py --world_size 8 --use_deepspeed examples/trl/dpo.py \
         --model_name_or_path="sft/final_merged_checkpoint" \
         --tokenizer_name_or_path=meta-llama/Llama-2-70b-hf \
         --deepspeed ../language-modeling/llama2_ds_zero3_config.json \
@@ -165,10 +159,10 @@ DEEPSPEED_HPU_ZERO3_SYNC_MARK_STEP_REQUIRED=1 python ../gaudi_spawn.py --world_s
 
 ### Merging the Adaptors
 
-To merge the adaptors into the base model, use the `merge_peft_adapter.py` helper script from TRL:
+To merge the adaptors into the base model, use the `optimum-habana/examples/trl/merge_peft_adapter.py` helper script from TRL:
 
 ```bash
-python merge_peft_adapter.py --base_model_name="meta-llama/Llama-2-70b-hf" --adapter_model_name="dpo" --output_name="stack-llama-2"
+python optimum-habana/examples/trl/merge_peft_adapter.py --base_model_name="meta-llama/Llama-2-70b-hf" --adapter_model_name="dpo" --output_name="stack-llama-2"
 ```
 
 This will also push the model to your HuggingFace Hub account.
@@ -178,8 +172,8 @@ This will also push the model to your HuggingFace Hub account.
 Load the DPO-trained LoRA adaptors saved by the DPO training step and run it through the [text-generation example](https://github.com/huggingface/optimum-habana/tree/main/examples/text-generation):
 
 ```bash
-python ../gaudi_spawn.py --world_size 8 --use_deepspeed run_generation.py \
---model_name_or_path ../trl/stack-llama-2/ \
+python optimum-habana/examples/gaudi_spawn.py --world_size 8 --use_deepspeed optimum-habana/examples/text-generation/run_generation.py \
+--model_name_or_path stack-llama-2 \
 --use_hpu_graphs --use_kv_cache --batch_size 1 --bf16 --max_new_tokens 100 \
 --prompt "Here is my prompt"
 ```

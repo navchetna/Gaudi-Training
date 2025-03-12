@@ -10,7 +10,7 @@ pip install -e ./optimum-habana
 
 To install the requirements for every example:
 ```bash
-pip install -r examples/trl/requirements.txt
+pip install -r optimum-habana/examples/trl/requirements.txt
 ```
 
 
@@ -18,7 +18,7 @@ pip install -r examples/trl/requirements.txt
 
 1. The following example is for the supervised Lora finetune with Qwen2 model for conversational format dataset.
 ```bash
-python sft.py \
+python optimum-habana/examples/trl/sft.py \
     --model_name_or_path "Qwen/Qwen2-7B" \
     --dataset_name "philschmid/dolly-15k-oai-style" \
     --streaming False \
@@ -49,8 +49,29 @@ python sft.py \
     --use_flash_attention
 ```
 
+### Merging the Adaptors
+
+To merge the adaptors into the base model, use the `optimum-habana/examples/trl/merge_peft_adapter.py` helper script from TRL:
+
+```bash
+python optimum-habana/examples/trl/merge_peft_adapter.py --base_model_name="Qwen/Qwen2-7B" --adapter_model_name="model_qwen" --output_name="qwen_model_2"
+```
+
+This will also push the model to your HuggingFace Hub account.
+
+### Running the Model
+
+Load the DPO-trained LoRA adaptors saved by the DPO training step and run it through the [text-generation example](https://github.com/huggingface/optimum-habana/tree/main/examples/text-generation):
+
+```bash
+python optimum-habana/examples/gaudi_spawn.py optimum-habana/examples/text-generation/run_generation.py \
+--model_name_or_path qwen_model_2 \
+--use_hpu_graphs --use_kv_cache --batch_size 1 --bf16 --max_new_tokens 100 \
+--prompt "Here is my prompt"
+```
+
 ### Command Parameters
-` python sft.py `: Launches the main training script.
+` python optimum-habana/examples/trl/sft.py `: Launches the main training script.
 
 
 ### Script Arguments
