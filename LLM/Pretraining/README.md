@@ -29,7 +29,7 @@ docker exec -it Gaudi_Docker bash
 
 ## Model Setup
 
-Now that we’re running in a docker environment, we can now install the remaining libraries and model repositories: Start in the root directory and install the Megatron-LM Library.
+Now that we’re running in a docker environment, we can now install the remaining libraries and model repositories: Start in the root directory and install the Megatron-Deepspeed Library.
 ```bash
 cd /root
 pip install git+https://github.com/HabanaAI/DeepSpeed.git@1.19.0
