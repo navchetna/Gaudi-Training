@@ -4,20 +4,28 @@ This directory contains a script that showcases how to perform image to text gen
 
 ## Requirements 
 
-Install Optimum Habana
+### Run the Intel Gaudi Docker image:
+
+```sh
+DOCKER_OPTS="-e OMPI_MCA_btl_vader_single_copy_mechanism=none --cap-add=sys_nice --net=host --ipc=host"
+docker run -it --runtime=habana -e HABANA_VISIBLE_DEVICES=all $DOCKER_OPTS vault.habana.ai/gaudi-docker/1.20.0/ubuntu22.04/habanalabs/pytorch-installer-2.6.0:latest
+cd root
+```
+
+### Install Optimum Habana
 
 ```sh
 git clone https://github.com/huggingface/optimum-habana.git
-
 pip install ./optimum-habana
 ```
-Install additional task specific requirements
+
+### Install additional task specific requirements
 
 ```sh
 pip install -r optimum-habana/examples/image-to-text/requirements.txt
 ```
 
-Install DeepSpeed 
+### Install DeepSpeed 
 
 ```sh
 pip install git+https://github.com/HabanaAI/DeepSpeed.git@1.19.0

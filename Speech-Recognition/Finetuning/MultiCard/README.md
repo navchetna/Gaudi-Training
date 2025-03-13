@@ -1,20 +1,29 @@
 # Automatic Speech Recognition 
 
 ## Requirements 
-Install Optimum Habana
+
+### Run the Intel Gaudi Docker image:
+
+```sh
+DOCKER_OPTS="-e OMPI_MCA_btl_vader_single_copy_mechanism=none --cap-add=sys_nice --net=host --ipc=host"
+docker run -it --runtime=habana -e HABANA_VISIBLE_DEVICES=all $DOCKER_OPTS vault.habana.ai/gaudi-docker/1.20.0/ubuntu22.04/habanalabs/pytorch-installer-2.6.0:latest
+cd root
+```
+
+### Install Optimum Habana
 
 ```sh
 git clone https://github.com/huggingface/optimum-habana.git
-
 pip install ./optimum-habana
 ```
-Install additional task specific requirements
+
+### Install additional task specific requirements
 
 ```sh
 pip install -r optimum-habana/examples/speech-recognition/requirements.txt
 ```
 
-Install DeepSpeed 
+### Install DeepSpeed 
 
 ```sh
 pip install git+https://github.com/HabanaAI/DeepSpeed.git@1.19.0
@@ -65,7 +74,6 @@ python optimum-habana/examples/gaudi_spawn.py \
 1. Based on the number of cards you would like to utilize `--world_size` parameter can be changed 
 2. To use DeepSpeed instead of MPI, replace `--use_mpi` with `--use_deepspeed` in the previous example
 
-
 ### Variables 
 
 | Variable Name                        | Short Explanation                          | Default Value                     |
@@ -90,7 +98,6 @@ python optimum-habana/examples/gaudi_spawn.py \
 | `--sdp_on_bf16`                      | Use SDP with BF16 precision                |                                   |
 | `--bf16`                             | Use BF16 precision for computation         |                                   |
 | `--use_hpu_graphs_for_inference`     | Use HPU graphs for inference optimization  |                                   |
-
 
 ## Sequence to Sequence
 
@@ -136,12 +143,9 @@ python optimum-habana/examples/gaudi_spawn.py \
     --trust_remote_code "True"
 ```
 
-
 ### Note 
 1. Based on the number of cards you would like to utilize `--world_size` parameter can be changed 
 2. To use DeepSpeed instead of MPI, replace `--use_mpi` with `--use_deepspeed` in the previous example
-
-
 
 ### Variables 
 

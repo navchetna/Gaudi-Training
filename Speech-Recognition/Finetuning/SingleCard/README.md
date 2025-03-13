@@ -1,14 +1,23 @@
 # Automatic Speech Recognition 
 
 ## Requirements 
-Install Optimum Habana
+
+### Run the Intel Gaudi Docker image:
+
+```sh
+DOCKER_OPTS="-e OMPI_MCA_btl_vader_single_copy_mechanism=none --cap-add=sys_nice --net=host --ipc=host"
+docker run -it --runtime=habana -e HABANA_VISIBLE_DEVICES=all $DOCKER_OPTS vault.habana.ai/gaudi-docker/1.20.0/ubuntu22.04/habanalabs/pytorch-installer-2.6.0:latest
+cd root
+```
+
+### Install Optimum Habana
 
 ```sh
 git clone https://github.com/huggingface/optimum-habana.git
-
 pip install ./optimum-habana
 ```
-Install additional task specific requirements
+
+### Install additional task specific requirements
 
 ```sh
 pip install -r optimum-habana/examples/speech-recognition/requirements.txt
@@ -53,7 +62,6 @@ python optimum-habana/examples/speech-recognition/run_speech_recognition_ctc.py 
     --trust_remote_code "True"
 ```
 
-
 ### Variables
 
 | Variable Name                        | Short Explanation                          | Default Value                     |
@@ -86,7 +94,6 @@ python optimum-habana/examples/speech-recognition/run_speech_recognition_ctc.py 
 | `--use_hpu_graphs_for_training`      | Use HPU graphs for training optimization   |                                   |
 | `--use_hpu_graphs_for_inference`     | Use HPU graphs for inference optimization  |                                   |
 | `--attn_implementation`              | Attention implementation type              | `sdpa`                            |
-
 
 ## Sequence to Sequence
 
@@ -134,8 +141,6 @@ python optimum-habana/examples/speech-recognition/run_speech_recognition_seq2seq
     --sdp_on_bf16 \
     --trust_remote_code "True"
 ```
-
-
 
 ### Variables 
 

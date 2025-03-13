@@ -2,22 +2,28 @@
 
 This directory contains example scripts that demonstrate how to perform video comprehension on Gaudi with graph mode.
 
-## Requirements 
+## Requirements
 
-Install Optimum Habana
+### Run the Intel Gaudi Docker image:
+
+```sh
+DOCKER_OPTS="-e OMPI_MCA_btl_vader_single_copy_mechanism=none --cap-add=sys_nice --net=host --ipc=host"
+docker run -it --runtime=habana -e HABANA_VISIBLE_DEVICES=all $DOCKER_OPTS vault.habana.ai/gaudi-docker/1.20.0/ubuntu22.04/habanalabs/pytorch-installer-2.6.0:latest
+cd root
+```
+
+### Install Optimum Habana
 
 ```sh
 git clone https://github.com/huggingface/optimum-habana.git
-
 pip install ./optimum-habana
 ```
 
-Install additional task specific requirements
+### Install additional task specific requirements
 
 ```sh
 pip install -r optimum-habana/examples/video-comprehension/requirements.txt
 ```
-
 
 ## Single-HPU inference
 
@@ -36,7 +42,6 @@ python3 optimum-habana/examples/video-comprehension/run_example.py \
 
 ### Models that have been validated:
 [LanguageBind/Video-LLaVA-7B-hf](https://huggingface.co/LanguageBind/Video-LLaVA-7B-hf)
-
 
 ### Variables
 

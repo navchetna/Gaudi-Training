@@ -2,28 +2,36 @@
 
 This directory contains a script that showcases how to perform image to text generation on Intel® Gaudi® AI Accelerators using multi cards.
 
-## Requirements 
+## Requirements
 
-Install Optimum Habana
+### Run the Intel Gaudi Docker image:
+
+```sh
+DOCKER_OPTS="-e OMPI_MCA_btl_vader_single_copy_mechanism=none --cap-add=sys_nice --net=host --ipc=host"
+docker run -it --runtime=habana -e HABANA_VISIBLE_DEVICES=all $DOCKER_OPTS vault.habana.ai/gaudi-docker/1.20.0/ubuntu22.04/habanalabs/pytorch-installer-2.6.0:latest
+cd root
+```
+
+### Install Optimum Habana
 
 ```sh
 git clone https://github.com/huggingface/optimum-habana.git
-
 pip install ./optimum-habana
 ```
-Install additional task specific requirements
+
+### Install additional task specific requirements
 
 ```sh
 pip install -r optimum-habana/examples/image-to-text/requirements.txt
 ```
 
-Install DeepSpeed 
+### Install DeepSpeed 
 
 ```sh
 pip install git+https://github.com/HabanaAI/DeepSpeed.git@1.19.0
 ```
 
-Install datasets package
+### Install datasets package
 
 ```sh
 pip install datasets
@@ -71,9 +79,6 @@ python3 optimum-habana/examples/gaudi_spawn.py \
 1. The model **meta-llama/Llama-3.2-11B-Vision-Instruct** requires special access permissions. Please request access on the model's page on Hugging Face.
 2. Based on the number of cards you would like to utilize `--world_size` parameter can be changed 
 3. To use DeepSpeed instead of MPI, replace `--use_mpi` with `--use_deepspeed` in the previous example
-
-
-
 
 ### Variables
 
