@@ -33,7 +33,7 @@ pip install git+https://github.com/HabanaAI/DeepSpeed.git@1.19.0
 
 The Connectionist Temporal Classification (CTC) model is widely used in Automatic Speech Recognition (ASR) to align input audio sequences with output text without requiring explicit frame-level alignment. It enables end-to-end speech recognition by predicting probabilities over characters or words at each time step while allowing flexible alignment through a blank token and repetition collapsing.
 
-You can run inference with Wav2Vec2 on the Librispeech dataset on 1 Gaudi card with the following command:
+The following command shows how to fine-tune [wav2vec2-large-lv60](https://huggingface.co/facebook/wav2vec2-large-lv60) on [Librispeech](https://huggingface.co/datasets/librispeech_asr) using 8 HPUs.
 
 ```sh
 python optimum-habana/examples/gaudi_spawn.py \
