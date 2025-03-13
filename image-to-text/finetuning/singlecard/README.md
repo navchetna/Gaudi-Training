@@ -1,7 +1,5 @@
 # Image to Text 
 
-This directory contains a script that showcases how to finetune image to text generation on Intel® Gaudi® AI Accelerators using a single card.
-
 ## Requirements
 
 ### Run the Intel Gaudi Docker image:
@@ -27,7 +25,7 @@ pip install -r optimum-habana/examples/image-to-text/requirements.txt
 
 ## LoRA Finetune
 
-Here are single-device command example
+Here is a multi-device command example for meta-llama/Llama-3.2-11B-Vision-Instruct.
 
 ```sh
 python3 optimum-habana/examples/image-to-text/run_image2text_lora_finetune.py \
@@ -97,4 +95,4 @@ python3 optimum-habana/examples/image-to-text/run_image2text_lora_finetune.py \
 | `--low_cpu_mem_usage`                | Reduce CPU memory usage                    | `True`                            |
 | `--max_seq_length`                   | Maximum sequence length                    | 512                               |
 | `--use_hpu_graphs_for_inference`     | Use HPU graphs for inference optimization  | `True`                            |
-| `--lora_target_modules`              | LoRA target modules (regex)                | `".*(language_model).*(down_proj|gate_proj|up_proj|k_proj|q_proj|v_proj|o_proj).*$"` |
+| `--lora_target_modules`              | LoRA target modules (regex)                | `".*(language_model).*(down_proj\|gate_proj\|up_proj\|k_proj\|q_proj\|v_proj\|o_proj).*$"` |

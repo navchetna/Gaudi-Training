@@ -79,7 +79,7 @@ python optimum-habana/examples/speech-recognition/run_speech_recognition_ctc.py 
 
 A **Sequence-to-Sequence (Seq2Seq) model** in **Automatic Speech Recognition (ASR)** maps an input audio sequence to a text sequence using an **encoder-decoder architecture**, often with attention mechanisms. Unlike CTC, Seq2Seq models generate outputs autoregressively, making them more powerful for capturing context but also more computationally intensive.
 
-The following example shows how to do inference with the Whisper small checkpoint on the Hindi subset of Common Voice 11 using 1 HPU devices in half-precision:
+The following example shows how to do inference with the Whisper small checkpoint on the Hindi subset of Common Voice 11 using 1 HPU device in half-precision:
 
 ```sh
 python optimum-habana/examples/speech-recognition/run_speech_recognition_seq2seq.py \

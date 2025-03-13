@@ -1,7 +1,5 @@
 # Image to Text 
 
-This directory contains a script that showcases how to perform image to text generation on Intel® Gaudi® AI Accelerators using multi cards.
-
 ## Requirements
 
 ### Run the Intel Gaudi Docker image:
@@ -39,7 +37,7 @@ pip install datasets
 
 ## LoRA Finetune
 
-Here are multi-device command example
+Here is a multi-device command example for meta-llama/Llama-3.2-11B-Vision-Instruct.
 
 ```sh
 python3 optimum-habana/examples/gaudi_spawn.py \
@@ -114,4 +112,4 @@ python3 optimum-habana/examples/gaudi_spawn.py \
 | `--low_cpu_mem_usage`                | Reduce CPU memory usage                    | `True`                            |
 | `--max_seq_length`                   | Maximum sequence length                    | 512                               |
 | `--use_hpu_graphs_for_inference`     | Use HPU graphs for inference optimization  | `True`                            |
-| `--lora_target_modules`              | LoRA target modules (regex)                | `".*(language_model).*(down_proj|gate_proj|up_proj|k_proj|q_proj|v_proj|o_proj).*$"` |
+| `--lora_target_modules`              | LoRA target modules (regex)                | `".*(language_model).*(down_proj\|gate_proj\|up_proj\|k_proj\|q_proj\|v_proj\|o_proj).*$"` |

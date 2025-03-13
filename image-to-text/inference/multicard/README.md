@@ -1,7 +1,5 @@
 # Image to Text 
 
-This directory contains a script that showcases how to perform image to text generation on Intel® Gaudi® AI Accelerators using multi cards.
-
 ## Requirements 
 
 ### Run the Intel Gaudi Docker image:
@@ -61,5 +59,5 @@ PT_HPU_ENABLE_LAZY_COLLECTIVES=true python optimum-habana/examples/gaudi_spawn.p
 | `--image_path`                 | URL or path to input image               | `"https://llava-vl.github.io/static/images/view.jpg"` |
 | `--use_hpu_graphs`             | Use HPU graphs for optimization          |                                   |
 | `--bf16`                       | Use BF16 precision for computation       |                                   |
-| `--use_flash_attention`         | Enable flash attention mechanism        |                                   |
+| `--use_flash_attention`        | Enable flash attention mechanism         |                                   |
 | `--flash_attention_recompute`  | Recompute flash attention                |                                   |

@@ -1,7 +1,5 @@
 # Image to Text 
 
-This directory contains a script that showcases how to perform image to text generation on Intel® Gaudi® AI Accelerators using a single card.
-
 ## Requirements
 
 ### Run the Intel Gaudi Docker image:
@@ -27,6 +25,8 @@ pip install -r optimum-habana/examples/image-to-text/requirements.txt
 
 
 ## Single card inference with BF16
+
+To run inference
 
 ```sh
 python3 optimum-habana/examples/image-to-text/run_pipeline.py \
