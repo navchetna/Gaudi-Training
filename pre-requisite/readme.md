@@ -20,16 +20,6 @@ Configure the number of cards to use:
   
 
 
-### Container Access
-```bash
-docker exec -it my-container /bin/bash
-```
-
-
-### Device Verification
-```bash
-hl-smi # Should show all available Gaudi devices
-```
 ### Additional Docker Commands
 
 #### Copy Files Between Host and Container
@@ -62,3 +52,16 @@ docker logs --timestamps my-container
 # Limit log output by size
 docker logs --tail=100 my-container
 ```
+
+
+## Container Access
+```bash
+docker exec -it my-container /bin/bash
+```
+
+
+## Device Verification
+```bash
+hl-smi # Should show all available Gaudi devices
+```
+
