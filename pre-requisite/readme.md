@@ -30,3 +30,35 @@ docker exec -it my-container /bin/bash
 ```bash
 hl-smi # Should show all available Gaudi devices
 ```
+### Additional Docker Commands
+
+#### Copy Files Between Host and Container
+```bash
+# Copy from host to container
+docker cp /host/path/file.txt my-container:/container/path/
+
+# Copy from container to host
+docker cp my-container:/container/path/file.txt /host/path/
+```
+
+### Display disk usage for the container
+```bash
+docker system df
+
+# For detailed disk usage information
+docker system df -v
+```
+
+### Display container logs
+```bash
+docker logs my-container
+
+# Follow log output (live view)
+docker logs -f my-container
+
+# Show logs with timestamps
+docker logs --timestamps my-container
+
+# Limit log output by size
+docker logs --tail=100 my-container
+```
