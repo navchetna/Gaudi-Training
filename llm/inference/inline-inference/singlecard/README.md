@@ -80,12 +80,13 @@ python optimum-habana/examples/text-generation/text-generation-pipeline/run_pipe
 
 | Variable Name                  | Short Explanation                        | Default Value                     |
 |--------------------------------|------------------------------------------|-----------------------------------|
-| `--model_name_or_path`         | Path/name of the model                   | `meta-llama/Llama-3.2-11B-Vision-Instruct` |
+| `--model_name_or_path`         | Path/name of the model                   | `meta-llama/Llama-2-7b-hf`        |
 | `--use_hpu_graphs`             | Use HPU graphs for optimization          |                                   |
 | `--use_kv_cache`               | Whether to use the key/value cache for decoding. |                           |
 | `--max_new_tokens`             | Number of tokens to generate.            | 100                               |
 | `--do_sample`                  | Whether to use sampling for generation.  |                                   |
-| `--temperature`                | Temperature value for text generation    | 1.0                               |
-| `--top_p`                      | Top_p value for generating text via sampling | 1.0                           |
-| `--batch_size`                 | Input batch size.                        | 1                                 |
+| `--temperature`                | Temperature value for text generation    | 0.5                               |
+| `--top_p`                      | Top_p value for generating text via sampling | 0/95                          |
+| `--batch_size`                 | Input batch size.                        | 2                                 |
 | `--prompt`                     | To give a prompt of your choice as input.|                                   |
+---
