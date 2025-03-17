@@ -126,18 +126,22 @@ print(chat_completion)
 
 The following sampling parameters are supported.
 
-- `best_of: Optional[int] = None`: Number of output sequences that are generated from the prompt. From these best_of sequences, the top n sequences are returned.      best_of must be greater than or equal to n. By default, best_of is set to n.
-- `top_k: Optional[int] = None`: Integer that controls the number of top tokens to consider. Set to -1 to consider all tokens.
-- `min_p: Optional[float] = None`: Float that represents the minimum probability for a token to be considered, relative to the probability of the most likely token. Must be in [0, 1]. Set to 0 to disable this.
-- `repetition_penalty: Optional[float] = None`: Float that penalizes new tokens based on whether they appear in the prompt and the generated text so far. Values > 1 encourage the model to use new tokens, while values < 1 encourage the model to repeat tokens.
-- `stop_token_ids: Optional[List[int]] = Field(default_factory=list)`: List of tokens that stop the generation when they are generated. The returned output will contain the stop tokens unless the stop tokens are special tokens.
-- `include_stop_str_in_output: bool = False`: Whether to include the stop strings in output text. Defaults to False.
-- `ignore_eos: bool = False`: Whether to ignore the EOS token and continue generating tokens after the EOS token is generated.
-- `min_tokens: int = 0`: Minimum number of tokens to generate per output sequence before EOS or stop_token_ids can be generated
-- `skip_special_tokens: bool = True`: Whether to skip special tokens in the output.
-- `spaces_between_special_tokens: bool = True`: Whether to add spaces between special tokens in the output. Defaults to True.
-- `truncate_prompt_tokens: Optional[Annotated[int, Field(ge=1)]] = None`: If set to an integer k, will use only the last k tokens from the prompt (i.e., left truncation). Defaults to None (i.e., no truncation).
-- `prompt_logprobs: Optional[int] = None`: Number of log probabilities to return per prompt token.
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `best_of` | Number of output sequences generated from the prompt. The top n sequences are returned. Must be greater than or equal to n. | n |
+| `top_k` | Controls the number of top tokens to consider. Set to -1 to consider all tokens. | None |
+| `min_p` | Minimum probability for a token to be considered, relative to the most likely token. Must be in [0, 1]. Set to 0 to disable. | None |
+| `repetition_penalty` | Penalizes tokens that appear in the prompt and generated text. Values > 1 encourage new tokens, values < 1 encourage repetition. | None |
+| `stop_token_ids` | List of tokens that stop generation when produced. The returned output will contain these unless they're special tokens. | [] |
+| `include_stop_str_in_output` | Whether to include stop strings in the output text. | False |
+| `ignore_eos` | Whether to ignore the EOS token and continue generating tokens after it. | False |
+| `min_tokens` | Minimum number of tokens to generate before EOS or stop tokens can be generated. | 0 |
+| `skip_special_tokens` | Whether to skip special tokens in the output. | True |
+| `spaces_between_special_tokens` | Whether to add spaces between special tokens in the output. | True |
+| `truncate_prompt_tokens` | If set to an integer k, uses only the last k tokens from the prompt (left truncation). Must be ≥ 1. | None |
+| `prompt_logprobs` | Number of log probabilities to return per prompt token. | None |
+
+
 
 The following extra parameters are supported:
 
