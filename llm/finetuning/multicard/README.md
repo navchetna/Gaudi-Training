@@ -84,10 +84,10 @@ A general-purpose communication protocol and library for parallel computing that
 Run the DPO trainer using the model chosen from the previous step:
 
 ```bash
-DEEPSPEED_HPU_ZERO3_SYNC_MARK_STEP_REQUIRED=1 python examples/gaudi_spawn.py --world_size 2 --use_deepspeed examples/trl/dpo.py \
-        --model_name_or_path="meta-llama/Llama-2-70b-hf" \
-        --tokenizer_name_or_path=meta-llama/Llama-2-70b-hf \
-        --deepspeed ../language-modeling/llama2_ds_zero3_config.json \
+DEEPSPEED_HPU_ZERO3_SYNC_MARK_STEP_REQUIRED=1 python optimum-habana/examples/gaudi_spawn.py --world_size 2 --use_deepspeed optimum-habana/examples/trl/dpo.py \
+        --model_name_or_path "meta-llama/Llama-2-70b-hf" \
+        --tokenizer_name_or_path "meta-llama/Llama-2-70b-hf" \
+        --deepspeed "optimum-habana/examples/language-modeling/llama2_ds_zero3_config.json" \
         --lora_target_modules "q_proj" "v_proj" "k_proj" "out_proj" "fc_in" "fc_out" "wte" \
         --output_dir="dpo" \
         --max_prompt_length=256 \
