@@ -69,7 +69,7 @@ python optimum-habana/examples/gaudi_spawn.py --use_deepspeed --world_size 8 opt
 | Variable Name                  | Short Explanation                        | Default Value                     |
 |--------------------------------|------------------------------------------|-----------------------------------|
 | `--world_size`                 | Number of cards to utilize               | 8                                 |
-| `--use_mpi`                    | Use DeepSpeed for distributed training   |                                   |
+| `--use_deepspeed               | Use DeepSpeed for distributed training   |                                   |
 | `--model_name_or_path`         | Path/name of the model                   | `meta-llama/Llama-2-70b-hf`       |
 | `--use_hpu_graphs`             | Use HPU graphs for optimization          |                                   |
 | `--use_kv_cache`               | Whether to use the key/value cache for decoding. |                           |
@@ -77,6 +77,6 @@ python optimum-habana/examples/gaudi_spawn.py --use_deepspeed --world_size 8 opt
 | `--do_sample`                  | Whether to use sampling for generation.  |                                   |
 | `--temperature`                | Temperature value for text generation    | 0.5                               |
 | `--top_p`                      | Top_p value for generating text via sampling | 0.95                          |
-| `--batch_size`                 | Input batch size.                        | 2                                 |
+| `--batch_size`                 | Input batch size.                        | 4                                 |
 | `--prompt`                     | To give a prompt of your choice as input.|                                   |
 ---

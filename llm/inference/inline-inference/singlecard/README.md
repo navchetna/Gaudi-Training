@@ -86,7 +86,7 @@ python optimum-habana/examples/text-generation/text-generation-pipeline/run_pipe
 | `--max_new_tokens`             | Number of tokens to generate.            | 100                               |
 | `--do_sample`                  | Whether to use sampling for generation.  |                                   |
 | `--temperature`                | Temperature value for text generation    | 0.5                               |
-| `--top_p`                      | Top_p value for generating text via sampling | 0/95                          |
+| `--top_p`                      | Top_p value for generating text via sampling | 0.95                          |
 | `--batch_size`                 | Input batch size.                        | 2                                 |
 | `--prompt`                     | To give a prompt of your choice as input.|                                   |
 ---

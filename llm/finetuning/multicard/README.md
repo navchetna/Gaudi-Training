@@ -53,71 +53,9 @@ DEEPSPEED_HPU_ZERO3_SYNC_MARK_STEP_REQUIRED=1 python optimum-habana/examples/gau
 
 #### For meta-llama/Llama-2-70b-hf
 
-The following example demonstrates the creation of StackLlaMa 2: a Stack Exchange Llama-v2-70b model. The DPO training process involves two main steps.
+The following example demonstrates the creation of StackLlaMa 2: a Stack Exchange Llama-v2-70b model. The DPO training process involves the following steps.
 
 For large models like Llama2-70B, we can use DeepSpeed Zero-3 to enable DPO training across multiple cards:
-
-#### Step 1: Supervised Fine-Tuning (SFT)
-
-First, we perform supervised fine-tuning of the base Llama-v2-70b model to create Llama-v2-70b-se:
-
-**Option A: Using DeepSpeed for distributed training:**
-
-```bash
-DEEPSPEED_HPU_ZERO3_SYNC_MARK_STEP_REQUIRED=1 python optimum-habana/examples/gaudi_spawn.py --world_size 8 --use_deepspeed optimum-habana/examples/trl/sft.py \
-        --model_name_or_path meta-llama/Llama-2-70b-hf \
-        --dataset_name "lvwerra/stack-exchange-paired" \
-        --deepspeed "optimum-habana/examples/language-modeling/llama2_ds_zero3_config.json" \
-        --output_dir="./sft" \
-        --do_train \
-        --max_steps=500 \
-        --logging_steps=10 \
-        --save_steps=100 \
-        --per_device_train_batch_size=1 \
-        --per_device_eval_batch_size=1 \
-        --gradient_accumulation_steps=2 \
-        --learning_rate=1e-4 \
-        --lr_scheduler_type="cosine" \
-        --warmup_steps=100 \
-        --weight_decay=0.05 \
-        --optim="paged_adamw_32bit" \
-        --lora_target_modules "q_proj" "v_proj" \
-        --bf16 \
-        --remove_unused_columns=False \
-        --run_name="sft_llama2" \
-        --report_to=none \
-        --use_habana \
-        --use_lazy_mode
-```
-
-**Option B: Using MPI for distributed training:**
-
-```bash
-DEEPSPEED_HPU_ZERO3_SYNC_MARK_STEP_REQUIRED=1 python optimum-habana/examples/gaudi_spawn.py --world_size 8 --use_mpi optimum-habana/examples/trl/sft.py \
-        --model_name_or_path meta-llama/Llama-2-70b-hf \
-        --dataset_name "lvwerra/stack-exchange-paired" \
-        --deepspeed "optimum-habana/examples/language-modeling/llama2_ds_zero3_config.json" \
-        --output_dir="./sft" \
-        --do_train \
-        --max_steps=500 \
-        --logging_steps=10 \
-        --save_steps=100 \
-        --per_device_train_batch_size=1 \
-        --per_device_eval_batch_size=1 \
-        --gradient_accumulation_steps=2 \
-        --learning_rate=1e-4 \
-        --lr_scheduler_type="cosine" \
-        --warmup_steps=100 \
-        --weight_decay=0.05 \
-        --optim="paged_adamw_32bit" \
-        --lora_target_modules "q_proj" "v_proj" \
-        --bf16 \
-        --remove_unused_columns=False \
-        --run_name="sft_llama2" \
-        --report_to=none \
-        --use_habana \
-        --use_lazy_mode
-```
 
 ### DeepSpeed vs MPI for Distributed Training
 
@@ -141,13 +79,13 @@ A general-purpose communication protocol and library for parallel computing that
 - Requires more explicit management of data partitioning and model distribution
 - Offers more control (and responsibility) over distributed training details
 
-#### Step 2: DPO Training
+####  DPO Training
 
-Run the DPO trainer using the model saved from the previous step:
+Run the DPO trainer using the model chosen from the previous step:
 
 ```bash
-DEEPSPEED_HPU_ZERO3_SYNC_MARK_STEP_REQUIRED=1 python examples/gaudi_spawn.py --world_size 8 --use_deepspeed examples/trl/dpo.py \
-        --model_name_or_path="sft/final_merged_checkpoint" \
+DEEPSPEED_HPU_ZERO3_SYNC_MARK_STEP_REQUIRED=1 python examples/gaudi_spawn.py --world_size 2 --use_deepspeed examples/trl/dpo.py \
+        --model_name_or_path="meta-llama/Llama-2-70b-hf" \
         --tokenizer_name_or_path=meta-llama/Llama-2-70b-hf \
         --deepspeed ../language-modeling/llama2_ds_zero3_config.json \
         --lora_target_modules "q_proj" "v_proj" "k_proj" "out_proj" "fc_in" "fc_out" "wte" \
