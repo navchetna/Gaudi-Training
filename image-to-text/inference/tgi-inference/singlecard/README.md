@@ -10,7 +10,7 @@ docker pull ghcr.io/huggingface/tgi-gaudi:2.3.1
 
 ```bash
 model=llava-hf/llava-v1.6-mistral-7b-hf
-volume=$PWD/data   # share a volume with the Docker container to avoid downloading weights every run
+volume=/mnt/hf_cache   # share a volume with the Docker container to avoid downloading weights every run
 
 docker run -p 8080:80 \
    --runtime=habana \
