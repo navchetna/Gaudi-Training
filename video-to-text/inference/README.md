@@ -54,3 +54,5 @@ python3 optimum-habana/examples/video-comprehension/run_example.py \
 | `--use_hpu_graphs`             | Use HPU graphs for optimization          |                                   |
 | `--bf16`                       | Use BF16 precision for computation       |                                   |
 | `--output_dir`                 | Directory to save outputs                | `./`                              |
+| `--video_path`                 | Path to video input                      |                                   |
+| `--prompt`                     | Prompt to be given                       |                                   |
