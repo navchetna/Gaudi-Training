@@ -16,6 +16,12 @@ docker run -p 8080:80 \
    --runtime=habana \
    -v $volume:/data \
    -e HABANA_VISIBLE_DEVICES=all \
+   -e no_proxy=$no_proxy \
+   -e NO_PROXY=$NO_PROXY \
+   -e http_proxy=$http_proxy \
+   -e https_proxy=$https_proxy \
+   -e HTTP_PROXY=$HTTP_PROXY \
+   -e HTTPS_PROXY=$HTTPS_PROXY \
    -e OMPI_MCA_btl_vader_single_copy_mechanism=none \
    -e TEXT_GENERATION_SERVER_IGNORE_EOS_TOKEN=true \
    -e PT_HPU_ENABLE_LAZY_COLLECTIVES=true \
@@ -31,7 +37,8 @@ docker run -p 8080:80 \
    ghcr.io/huggingface/tgi-gaudi:2.3.1 \
    --model-id $model \
    --max-input-tokens 4096 --max-batch-prefill-tokens 16384 \
-   --max-total-tokens 8192 --max-batch-total-tokens 32768
+   --max-total-tokens 8192 --max-batch-total-tokens 32768 
+
 ```
 
 ## Wait for the TGI-Gaudi server to come online. You will see something like so:
